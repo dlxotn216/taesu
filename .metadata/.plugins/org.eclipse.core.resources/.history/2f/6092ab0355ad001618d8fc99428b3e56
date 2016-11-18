@@ -1,0 +1,11 @@
+package net.madvirus.spring4.account.vo;
+
+public class AccountForSelect {
+	private String id;
+	private String name;
+	private String passwd;
+	private String phone_num;
+	private Character sms_rec_yn;
+	private Character email_yn;
+	
+}

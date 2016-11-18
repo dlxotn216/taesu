@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.madvirus.spring4.eq.EqDao">
+	<select id="selectEqByEqId" parameterType="String" resultType="net.madvirus.spring4.eq.vo.EqForSelect">
+		select * from eq where eq_id=#{eq_id};
+	</select>
+	
+	<select id="selectByGroupId" parameterType="String" resultType="net.madvirus.spring4.eq.vo.EqForSelect">
+		select *
+		from eq, eq_group_mapping, eq_group
+		where eq.EQ_ID = eq_group_mapping.EQ_ID
+		and eq_group.GROUP_ID = eq_group_mapping.GROUP_ID	
+		and eq_group.group_id =#{group_id}
+	</select>
+	
+	<select id="selectByGroupIdCount"  parameterType="String"  resultType="long">
+		select count(*)
+		from eq, eq_group_mapping, eq_group
+		where eq.EQ_ID = eq_group_mapping.EQ_ID
+		and eq_group.GROUP_ID = eq_group_mapping.GROUP_ID	
+		and eq_group.group_id =#{group_id}
+	</select>
+</mapper>

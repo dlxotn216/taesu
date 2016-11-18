@@ -1,0 +1,9 @@
+package net.madvirus.spring4.account;
+
+import java.util.List;
+
+import net.madvirus.spring4.account.vo.AccountForSelect;
+
+public class AccountDao {
+	List<AccountForSelect> selectAll();
+}

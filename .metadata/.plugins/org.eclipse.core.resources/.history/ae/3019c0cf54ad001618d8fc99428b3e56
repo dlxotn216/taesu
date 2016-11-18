@@ -1,0 +1,5 @@
+package net.madvirus.spring4.account.vo;
+
+public class AccountForSelect {
+
+}

@@ -1,0 +1,46 @@
+package net.madvirus.spring4.eq;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import net.madvirus.spring4.common.SearchOption;
+import net.madvirus.spring4.eq.vo.EqForSelect;
+
+@Service
+public class EqService {
+
+	@Autowired
+	private EqDao eDao;
+	
+	public List<EqForSelect> selectEq(SearchOption searchOption){
+		String searchType = searchOption.getSearchType();
+		if(searchType == null)
+			return null;
+		
+		if(searchType.equals("eq")){
+			return eDao.selectEqByEqId(searchOption.getEq_id());
+		} else if(searchType.equals("group")){
+			return eDao.selectByGroupId(searchOption.getGroup_id());
+		}
+		
+		return null;
+		
+	}
+	
+	public long selectEqCount(SearchOption searchOption){
+		String searchType = searchOption.getSearchType();
+		if(searchType == null)
+			return null;
+		
+		if(searchType.equals("eq")){
+			return eDao.selectEqByEqId(searchOption.getEq_id());
+		} else if(searchType.equals("group")){
+			return eDao.selectByGroupId(searchOption.getGroup_id());
+		}
+		
+		return null;
+		
+	}
+}

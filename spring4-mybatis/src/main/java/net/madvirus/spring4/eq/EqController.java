@@ -1,6 +1,7 @@
 package net.madvirus.spring4.eq;
 import java.util.List;
 
+
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
@@ -20,15 +21,15 @@ import net.madvirus.spring4.eq.vo.EqForSelect;
 public class EqController {
 	
 	@Autowired
-	private EqService eService;
+	private EqService eqService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value="/eq", method=RequestMethod.GET)
 	@ResponseBody
-	public Object selectOne(SearchOption searchOption){
+	public Object selectEq(SearchOption searchOption){
 		
-		List<EqForSelect> eq = eService.selectEq(searchOption);
+		List<EqForSelect> eq = eqService.selectEq(searchOption);
 		logger.info("eq fetch success");
 		
 		if(eq == null){
@@ -36,5 +37,15 @@ public class EqController {
 		}
 		
 		return eq;
+	}
+	
+	@RequestMapping(value="/eq/count", method=RequestMethod.GET)
+	@ResponseBody
+	public Object selectEqCount(SearchOption searchoption){
+		Long eqCount = eqService.selectEqCount(searchoption);
+		if(eqCount == null){
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
+		return eqCount;
 	}
 }

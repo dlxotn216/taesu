@@ -28,4 +28,19 @@ public class EqService {
 		return null;
 		
 	}
+	
+	public Long selectEqCount(SearchOption searchOption){
+		String searchType = searchOption.getSearchType();
+		if(searchType == null)
+			return null;
+		
+		if(searchType.equals("eq")){
+			return eDao.selectEqByEqIdCount(searchOption.getEq_id());
+		} else if(searchType.equals("group")){
+			return eDao.selectByGroupIdCount(searchOption.getGroup_id());
+		}
+		
+		return null;
+		
+	}
 }
