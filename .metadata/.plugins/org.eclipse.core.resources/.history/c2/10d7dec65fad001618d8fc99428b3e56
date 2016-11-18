@@ -1,0 +1,36 @@
+package net.madvirus.spring4.eqgroup;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import net.madvirus.spring4.eqgroup.vo.EqGroupForSelect;
+
+@Service
+public class EqGroupService {
+	@Autowired
+	private EqGroupDao eqgroupDao;
+	
+	public List<EqGroupForSelect> selectAll(){
+		List<EqGroupForSelect> groups =  eqgroupDao.selectAll();
+		
+		return groups;
+	}
+	
+	public List<EqGroupForSelect> getGroupParent(Long group_id){
+		List<EqGroupForSelect> groups =  eqgroupDao.selectAll();
+		
+		Long upper_group_id = group_id;
+		Long target_group_id = group_id;
+		
+		while(group_id != -1){
+			for(EqGroupForSelect eqGroup : groups){
+				if(eqGroup.getGroup_id().equals(obj))
+			}
+		}
+		
+		return groups;		
+	}
+}

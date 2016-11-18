@@ -1,0 +1,16 @@
+package net.madvirus.spring4.eqgroup;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import net.madvirus.spring4.eqgroup.vo.EqGroupForSelect;
+
+public class EqGroupService {
+	@Autowired
+	private EqGroupDao eqgroupDao;
+	
+	public List<EqGroupForSelect> selectAll(){
+		return eqgroupDao.selectAll();
+	}
+}

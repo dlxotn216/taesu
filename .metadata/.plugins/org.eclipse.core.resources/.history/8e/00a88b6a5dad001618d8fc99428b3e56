@@ -1,0 +1,28 @@
+package net.madvirus.spring4.eqgroup;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import net.madvirus.spring4.eqgroup.vo.EqGroupForSelect;
+
+@Controller
+public class EqGroupController {
+	
+	@Autowired
+	EqGroupService eqGroupService;
+	
+	Logger log = LoggerFactory.getLogger(EqGroupController.class);
+	
+	@RequestMapping(value="/eqgroup", method=RequestMethod.GET)
+	public Object selectAll(){
+		List<EqGroupForSelect> eqGroups = eqGroupService.selectAll()
+		log.info("eqgroup fetch called");
+		return eqGroups;
+	}
+}

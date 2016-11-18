@@ -1,0 +1,5 @@
+package net.madvirus.spring4.eqgroup.vo;
+
+public class EqGroupForSelect {
+
+}

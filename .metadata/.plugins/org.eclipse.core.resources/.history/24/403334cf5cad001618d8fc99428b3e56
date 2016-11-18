@@ -1,0 +1,12 @@
+package net.madvirus.spring4.eqgroup.vo;
+
+public class EqGroupForSelect {
+	private Long group_id;
+	private String comp_code;
+	private String group_nm;
+	private Long upper_group_id;
+	private String lat;
+	private String lng;
+	private Integer group_depth;
+	private String group_prefix;
+}

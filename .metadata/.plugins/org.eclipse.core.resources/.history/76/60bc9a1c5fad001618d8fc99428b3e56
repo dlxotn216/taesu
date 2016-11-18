@@ -1,0 +1,33 @@
+package net.madvirus.spring4.eqgroup;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+@Controller
+public class EqGroupController {
+	
+	@Autowired
+	EqGroupService eqGroupService;
+	
+	Logger log = LoggerFactory.getLogger(EqGroupController.class);
+	
+	@ResponseBody
+	@RequestMapping(value="/eqgroup", method=RequestMethod.GET)
+	public Object selectAll(){
+		
+		return eqGroupService.selectAll();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/eqgroup/{id}/parent")
+	public Object getGroupParent(@PathVariable Long id){
+		return eqGroupService.getGroupParent();
+	}
+}

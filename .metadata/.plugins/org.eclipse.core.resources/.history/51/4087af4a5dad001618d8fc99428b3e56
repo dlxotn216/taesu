@@ -1,0 +1,17 @@
+package net.madvirus.spring4.eqgroup;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class EqGroupController {
+	
+	@Autowired
+	EqGroupService eqGroupService;
+	
+	@RequestMapping(value="/eqgroup", method=RequestMethod.GET)
+	public Object selectAll(){
+		return eqGroupService.selectAll();
+	}
+}
