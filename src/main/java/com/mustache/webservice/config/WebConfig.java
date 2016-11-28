@@ -24,7 +24,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/www/**").addResourceLocations("/WEB-INF/view/");
-
+		registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/static/");
 	}
 
 	/*

@@ -11,10 +11,9 @@
     ${CURRENT_TIME}
 </h1>
 
-<script src="/www/jquery.min.js"></script>
-<script src="/www/sockjs.min.js"></script>
-<script src="/www/test.js"></script>
-
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/sockjs.min.js"></script>
+<script src="/resources/js/test.js"></script>
 
 <input type="button" id="connBtn" value="연결" />
 <input type="text" id="message" />
