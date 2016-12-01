@@ -1,9 +1,12 @@
-# taesu
+Start Date	2016-11-28 06:05
 
-Spring Framework 4.0.4.RELEASE
-Mybatis 3
-Mysql 5.7
-Maven.
+Spring Boot
+	- WebMVC
+	- Mybatis (MySQL)
+	- Websocket
 
-RESTful server test.
+
+	TODO
+	- ElasticSearch
+	
 
