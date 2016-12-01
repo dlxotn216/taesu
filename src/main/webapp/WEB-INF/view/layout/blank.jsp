@@ -15,19 +15,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<tiles:insertAttribute name="header" />
-		<main class="mdl-layout__content">
-			<div class="page-content" style="min-height: 500px;">
-				<!-- Your content goes here -->
-				<tiles:insertAttribute name="body" />
-			</div>
-		</main>
-		<tiles:insertAttribute name="footer" />
-	</div>
-
-	<script src="/resources/js/jquery.min.js"></script>
-	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-	<script src="/resources/js/test.js"></script>
+	<tiles:insertAttribute name="body" />
 </body>
 </html>

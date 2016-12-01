@@ -1,9 +1,12 @@
 package com.mustache.webservice;
 
+import com.mustache.webservice.security.CustomUserDetailService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -39,16 +42,21 @@ public class DemoApplication extends SpringBootServletInitializer {
 		return characterEncodingFilter;
 	}
 
-//	@Bean
-//	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-//		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-//		sessionFactory.setDataSource(dataSource);
-//		Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:query/*.xml");
-//		System.out.println("DEBUG : SQL MAPPER LENGTH : " + resources.length);
-//		sessionFactory.setMapperLocations(resources);
-//		sessionFactory.setTypeAliasesPackage("com.mustache.webservice");
-//		return sessionFactory.getObject();
-//	}
+	@Bean
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource);
+		Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:query/*.xml");
+		System.out.println("DEBUG : SQL MAPPER LENGTH : " + resources.length);
+		sessionFactory.setMapperLocations(resources);
+		sessionFactory.setTypeAliasesPackage("com.mustache.webservice");
+
+		Configuration config = new Configuration();
+		config.setMapUnderscoreToCamelCase(true);
+		sessionFactory.setConfiguration(config);
+
+		return sessionFactory.getObject();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);

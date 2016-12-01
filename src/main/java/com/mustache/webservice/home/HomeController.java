@@ -27,11 +27,6 @@ public class HomeController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginProcess(Model model) {
-
-		return "redirect:/main";
-	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Model model) {

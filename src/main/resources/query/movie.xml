@@ -1,8 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mustache.mapper">
+<mapper namespace="com.mustache.webservice.admin.movie.MovieDAO">
+
+	<insert id="insertMovie" parameterType="MovieSelect">
+		INSERT INTO movie
+			(MOVIE_ID
+			, FB_ACCOUNT_ID
+			, REG_USER_ID
+			, MOVIE_NAME
+			, REG_DATE
+			)
+			VALUES (
+				#{movieId}
+				, #{fbAccountId}
+				, #{regUserId}
+				, #{movieName}
+				, CURRENT_TIMESTAMP()
+			)
+		<selectKey resultType="Integer" keyProperty="movieId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+	</insert>
+
+	<select id="selectMovieByMovieId" parameterType="Integer" resultType="MovieSelect">
+		SELECT *
+			FROM movie
+			WHERE MOVIE_ID = #{movieId}
+	</select>
+
 	<select id="selectAllMovie" resultType="MovieSelect">
 		SELECT *
 			FROM movie
+			ORDER BY REG_DATE DESC
+	</select>
+
+	<update id="updateMovie" parameterType="MovieSelect">
+		UPDATE movie
+			SET MOVIE_NAME = #{movieName}
+			WHERE MOVIE_ID = #{movieId}
+	</update>
+
+	<delete id="deleteMovie" parameterType="Integer">
+		DELETE FROM movie
+			WHERE MOVIE_ID = #{movieId}
+	</delete>
+
+	<insert id="insertMovieLink" parameterType="MovieLink">
+		INSERT INTO movie_link
+			(
+				MOVIE_LINK_ID
+				, MOVIE_ID
+				, MOVIE_URL
+			)
+			VALUES
+				<foreach collection="list" separator="," item="item">
+					(null, #{item.movieId}, #{item.movieUrl})
+				</foreach>
+	</insert>
+
+	<select id="selectMovieLinkByMovieId" parameterType="Integer" resultType="MovieLink">
+		SELECT *
+			FROM movie_link
+			WHERE MOVIE_ID = #{movieId}
 	</select>
 </mapper>

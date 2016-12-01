@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface HomeDAO {
-	public String getCurrentDateTime();
+	String getCurrentDateTime();
 }

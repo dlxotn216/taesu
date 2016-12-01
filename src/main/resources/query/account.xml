@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mustache.webservice.account.AccountDao">
+
+    <insert id="createAccount" parameterType="com.mustache.webservice.account.vo.AccountForInsert">
+        INSERT
+          INTO account(user_id, passwd, user_name, user_email, request_date)
+             VALUES (#{userId}, #{passwd}, #{userName}, #{userEmail}, #{requestDate})
+    </insert>
+
+    <insert id="createAccountAythorityMapping" parameterType="com.mustache.webservice.account.vo.AccountForAuthorityMapping">
+        INSERT
+          INTO account_authority_mapping(user_id, auth_name)
+            VALUES (#{userId}, #{authName})
+    </insert>
+
+    <select id="readAccountForSecurity" parameterType="String" resultType="com.mustache.webservice.account.vo.AccountForSecurity">
+        SELECT * FROM account WHERE user_id=#{userId}
+    </select>
+
+    <select id="readAccountById" parameterType="String" resultType="com.mustache.webservice.account.vo.AccountForSelect">
+        SELECT  *
+        FROM
+          account, account_authority_mapping as aam
+        WHERE
+          account.user_id=#{userid}
+          and account.user_id = aam.user_id
+    </select>
+
+    <select id="readAccount" resultType="com.mustache.webservice.account.vo.AccountForSelect">
+        SELECT  * FROM  account
+    </select>
+
+    <update id="updateAccountById" parameterType="com.mustache.webservice.account.vo.AccountForUpdate">
+          UPDATE account
+          SET
+            account.passwd = #{passwd},
+            account.user_name = #{userName},
+            account.user_email = #{userEmail}
+          WHERE
+            account.user_id = #{userId}
+    </update>
+
+    <update id="updateUserAccountById" parameterType="com.mustache.webservice.account.vo.AccountForUpdate">
+        UPDATE account
+        SET
+          account.permit = #{permit},
+          account.permit_date = #{permitDate}
+        WHERE
+          account.user_id = #{userId}
+    </update>
+
+    <update id="updateAccountAuthorityMapping" parameterType="com.mustache.webservice.account.vo.AccountForAuthorityMapping">
+        UPDATE account_authority_mapping
+        SET
+          account_authority_mapping.auth_name = #{authName}
+        WHERE
+          account_authority_mapping.user_id = #{userId}
+    </update>
+
+    <delete id="deleteAccountById" parameterType="String">
+        DELETE
+        FROM  account
+        WHEN  user_id = #{userId}
+    </delete>
+
+    <delete id="deleteAccountAuthorityMapping" parameterType="String">
+        DELETE
+        FROM  account_authority_mapping
+        WHEN  user_id = #{userId}
+    </delete>
+
+
+
+</mapper>

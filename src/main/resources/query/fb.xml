@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mustache.webservice.admin.fb.FBDAO">
+	<insert id="insertFBAccount" parameterType="FBSelect">
+		INSERT INTO fb_account
+			(
+			 FB_ACCOUNT_ID
+			 , REG_USER_ID
+			 , FB_USER_ID
+			 , FB_USER_NAME
+			 , REG_DATE
+			)
+			VALUES (
+					#{fbAccountId}
+					, #{regUserId}
+					, #{fbUserId}
+					, #{fbUserName}
+					, CURRENT_TIMESTAMP()
+					)
+	</insert>
+
+	<select id="selectAllFBAccount" resultType="FBSelect">
+		SELECT *
+			FROM fb_account
+			ORDER BY FB_USER_NAME
+	</select>
+
+	<select id="selectFBAccountByFBAccountId" parameterType="Integer" resultType="FBSelect">
+		SELECT *
+			FROM fb_account
+			WHERE FB_ACCOUNT_ID = #{fbAccountId}
+			ORDER BY FB_USER_NAME
+	</select>
+
+	<update id="updateFBAccount" parameterType="FBSelect">
+		UPDATE fb_account
+			SET FB_USER_ID		= #{fbUserId}
+				, FB_USER_NAME	= #{fbUserName}
+			WHERE FB_ACCOUNT_ID = #{fbAccountId}
+	</update>
+
+	<delete id="deleteFBAccountByFBAccountId" parameterType="Integer">
+		DELETE FROM fb_account
+			WHERE FB_ACCOUNT_ID = #{fbAccountId}
+	</delete>
+</mapper>
