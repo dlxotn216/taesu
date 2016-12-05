@@ -42,4 +42,9 @@ public class ErrorController {
         model.addAttribute("retUrl", retUrl);
         return "error/403";
     }
+
+    @RequestMapping(value="/expire", method=RequestMethod.GET)
+    public String expire(){
+        return "error/expire";
+    }
 }

@@ -17,12 +17,15 @@
 					, #{fbUserName}
 					, CURRENT_TIMESTAMP()
 					)
+		<selectKey resultType="Integer" keyProperty="fbAccountId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 
 	<select id="selectAllFBAccount" resultType="FBSelect">
 		SELECT *
 			FROM fb_account
-			ORDER BY FB_USER_NAME
+			ORDER BY REG_DATE ASC, FB_USER_NAME
 	</select>
 
 	<select id="selectFBAccountByFBAccountId" parameterType="Integer" resultType="FBSelect">

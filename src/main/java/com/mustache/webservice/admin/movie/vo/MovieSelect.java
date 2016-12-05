@@ -19,10 +19,11 @@ PRIMARY KEY (`MOVIE_ID`)
 public class MovieSelect {
 	private Integer movieId;
 	private Integer fbAccountId;
-	private Integer regUserId;
+	private String regUserId;
 	private String movieName;
 	private Timestamp regDate;
 
 	private String regUserName;
 	private Integer visitCount;
+	private String [] links;
 }

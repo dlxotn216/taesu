@@ -37,15 +37,22 @@
 
             return false;
         });
+        $("#backBtn").click(function () {
+            window.history.back();
+        })
     })
 </script>
 
+<h2>회원가입</h2>
 <form id="createForm">
-    <input type="text" name="userId" placeholder="user id" /><br>
-    <input type="password" name="passwd" placeholder="user password" /><br>
-    <input type="text" name="userName" placeholder="user name" /><br>
-    <input type="text" name="userEmail" placeholder="user email" /><br>
-
-    <input type="submit" value="전송" />
+    <div class="form-group">
+        <input type="text" name="userId"  class="form-control" placeholder="Enter Your Account" required/>
+        <input type="password" name="passwd" class="form-control" placeholder="Enter Your Password" required/>
+        <input type="text" name="userName" class="form-control" placeholder="Enter Your Name" required/>
+        <input type="text" name="userEmail" class="form-control" placeholder="Enter Your Email" required/>
+        <br><br>
+        <input type="submit"  class="form-control btn btn-primary"value="가입" />
+        <input id="backBtn" type="button"  class="form-control btn btn-default"value="뒤로" />
+    </div>
 </form>
 

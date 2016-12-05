@@ -7,16 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <h1>
-    Index View
-    ${CURRENT_TIME}
+	Index View
+	${CURRENT_TIME}
 </h1>
 
 <script src="/resources/js/jquery.min.js"></script>
+<!--
 <script src="/resources/js/sockjs.min.js"></script>
 <script src="/resources/js/test.js"></script>
-
-<input type="button" id="connBtn" value="연결" />
-<input type="text" id="message" />
-<input type="button" id="sendBtn" value="전송" />
-
-
+<div class="form-group">
+<input type="text"class="form-control"  id="message" placeholder="Enter Your Message" />
+<input type="button" class="form-control btn btn-primary "  id="sendBtn" value="전송" />
+<br><br>
+<p class="form-control-static" style="text-align: center;">새로운 커넥션을 연결합니다.</p>
+<input type="button" class="form-control btn btn-default " id="connBtn" value="새 커넥션" />
+</div>
+-->

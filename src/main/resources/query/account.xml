@@ -28,7 +28,8 @@
     </select>
 
     <select id="readAccount" resultType="com.mustache.webservice.account.vo.AccountForSelect">
-        SELECT  * FROM  account
+        SELECT  * FROM  account, account_authority_mapping as aam
+        WHERE account.user_id = aam.user_id
     </select>
 
     <update id="updateAccountById" parameterType="com.mustache.webservice.account.vo.AccountForUpdate">
@@ -61,13 +62,13 @@
     <delete id="deleteAccountById" parameterType="String">
         DELETE
         FROM  account
-        WHEN  user_id = #{userId}
+        WHERE  user_id = #{userId}
     </delete>
 
     <delete id="deleteAccountAuthorityMapping" parameterType="String">
         DELETE
         FROM  account_authority_mapping
-        WHEN  user_id = #{userId}
+        WHERE  user_id = #{userId}
     </delete>
 
 

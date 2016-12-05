@@ -32,7 +32,7 @@
 	<select id="selectAllMovie" resultType="MovieSelect">
 		SELECT *
 			FROM movie
-			ORDER BY REG_DATE DESC
+			ORDER BY REG_DATE ASC
 	</select>
 
 	<update id="updateMovie" parameterType="MovieSelect">
@@ -64,4 +64,10 @@
 			FROM movie_link
 			WHERE MOVIE_ID = #{movieId}
 	</select>
+
+	<delete id="deleteMovieLinkByMovieId" parameterType="Integer">
+		DELETE FROM movie_link
+			WHERE MOVIE_ID = #{movieId}
+	</delete>
+
 </mapper>

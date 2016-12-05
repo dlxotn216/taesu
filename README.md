@@ -1,12 +1,7 @@
-Start Date	2016-11-28 06:05
+##### Start Date	2016-11-28 06:05
 
-Spring Boot
-	- WebMVC
-	- Mybatis (MySQL)
-	- Websocket
+### Project Info Repository
+	- https://drive.google.com/drive/folders/0B5SGr-gWevoXY3ZwMkxEQ255NGs
 
-
-	TODO
-	- ElasticSearch
-	
-
+### Project Development Log
+	-https://github.com/Y-Seungjae/mustache

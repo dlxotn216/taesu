@@ -56,4 +56,9 @@ public class MovieService implements MovieDAO {
 	public Integer selectMovieVisitCountTodayByMovieId(Integer movieId) {
 		return movieDAO.selectMovieVisitCountTodayByMovieId(movieId);
 	}
+
+	@Override
+	public void deleteMovieLinkByMovieId(Integer movieId) {
+		movieDAO.deleteMovieLinkByMovieId(movieId);
+	}
 }

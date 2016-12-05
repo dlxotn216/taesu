@@ -19,6 +19,10 @@
 
 
 	<!-- Pages -->
+	<definition name="/intro/*" extends="layout.blank" templateExpression="/WEB-INF/view/intro/intro.jsp">
+		<put-attribute name="body" value="/WEB-INF/view/intro/{1}.jsp" />
+	</definition>
+
 	<definition name="/" extends="layout.basic" templateExpression="/WEB-INF/view/index.jsp">
 		<put-attribute name="body" value="/WEB-INF/view/index/index.jsp" />
 	</definition>

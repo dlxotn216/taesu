@@ -10,24 +10,64 @@
 <html>
 <head>
 	<title><tiles:getAsString name="title" /></title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<tiles:insertAttribute name="header" />
-		<main class="mdl-layout__content">
-			<div class="page-content" style="min-height: 500px;">
-				<!-- Your content goes here -->
-				<tiles:insertAttribute name="body" />
-			</div>
-		</main>
-		<tiles:insertAttribute name="footer" />
+<div class="row">
+	<div class="col-md-12">
+		<tiles:insertAttribute name="header"/>
+	</div>
+	<div class="col-md-12 header-offset" style="display:block; padding-top:50px;">
+		<ol class="breadcrumb">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Library</a></li>
+			<li class="active">Data</li>
+		</ol>
 	</div>
 
-	<script src="/resources/js/jquery.min.js"></script>
-	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-	<script src="/resources/js/test.js"></script>
+	<div class="clearfix"></div>
+
+	<div class="col-md-12">
+		<tiles:insertAttribute name="body" ignore="false" />
+	</div>
+
+	<div class="clearfix"></div>
+
+	<div class="col-md-12">
+		<tiles:insertAttribute name="footer" />
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/lodash/4.17.2/lodash.js"></script>-->
+
+<script src="/resources/js/test.js"></script>
+<script type="text/javascript">
+	(function () {
+	    console.log("INIT");
+	})();
+</script>
+
+<script type="text/javascript" src="/resources/js/admin/movie/detail.js"></script>
+<script type="text/javascript" src="/resources/js/admin/movie/list.js"></script>
+<script type="text/javascript" src="/resources/js/admin/fb/detail.js"></script>
+<!-- Hotjar Tracking Code for http://ec2-54-238-153-241.ap-northeast-1.compute.a -->
+<script>
+	(function(h,o,t,j,a,r){
+		h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+		h._hjSettings={hjid:353286,hjsv:5};
+		a=o.getElementsByTagName('head')[0];
+		r=o.createElement('script');r.async=1;
+		r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+		a.appendChild(r);
+	})(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
 </body>
 </html>

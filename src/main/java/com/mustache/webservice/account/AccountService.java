@@ -5,12 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.security.Security;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Iterator;
@@ -66,9 +72,24 @@ public class AccountService {
         if(!userId.equals(pricinpal.toString())){
             return -1;
         }
-
         account.setPasswd(passwordEncoder.encode(account.getPasswd()));
         return accountDao.updateAccountById(account);
+    }
+    @Autowired
+    private SessionRegistry sessionRegistry;
+    private void changeSecurityToken(String userId){
+        List<Object> loggedUsers = sessionRegistry.getAllPrincipals();
+        for (Object principal :loggedUsers) {
+            if (principal instanceof User) {
+                UserDetails userDetails = (UserDetails) principal;
+                System.out.println(userDetails.getUsername()+" "+userId);
+                if (userDetails.getUsername().equals(userId)) {
+                    for (SessionInformation information : sessionRegistry.getAllSessions(userDetails, true)) {
+                        information.expireNow();
+                    }
+                }
+            }
+        }
     }
 
     @Transactional
@@ -83,7 +104,10 @@ public class AccountService {
         accountForAuthorityMapping.setUserId(account.getUserId());
         accountForAuthorityMapping.setAuthName(account.getAuthName());
 
-        int result = accountDao.updateUserAccountById(account) & accountDao.updateAccountAuthorityMapping(accountForAuthorityMapping);;
+        this.changeSecurityToken(account.getUserId());
+
+        int result = accountDao.updateUserAccountById(account)
+                     & accountDao.updateAccountAuthorityMapping(accountForAuthorityMapping);;
         return result;
     }
 
@@ -104,7 +128,8 @@ public class AccountService {
             return -1;
         }
 
-        int result = accountDao.deleteAccountById(userId) & accountDao.deleteAccountAuthorityMapping(userId);
+        int result = accountDao.deleteAccountAuthorityMapping(userId)
+                     & accountDao.deleteAccountById(userId);
         return result;
     }
 
@@ -117,8 +142,11 @@ public class AccountService {
      */
     @Transactional
     public int deleteAccount(String userId, boolean isMaster){
-        System.out.println("DEBUG delete account [userId: "+userId+"]");
-        int result = accountDao.deleteAccountById(userId) & accountDao.deleteAccountAuthorityMapping(userId);
+        System.out.println("DEBUG delete Master account [userId: "+userId+"]");
+        int result = accountDao.deleteAccountAuthorityMapping(userId)
+                     & accountDao.deleteAccountById(userId);
+        this.changeSecurityToken(userId);
+
         return result;
     }
 

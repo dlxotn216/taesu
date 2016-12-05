@@ -21,6 +21,27 @@ public class AccountController {
 
     private static Logger log = LoggerFactory.getLogger(AccountController.class);
 
+    /**
+     * @api {get} /account/:userId Get Account information
+     * @apiVersion 0.1.0
+     * @apiName ReadAccountById
+     * @apiGroup Account
+     *
+     * @apiParam {String} userId Users unique ID.
+     *
+     * @apiSuccess {String} passwd User's encoded password
+     * @apiSuccess {String} userName User's name
+     *
+     * @apiSuccessExample Success-Response:
+     *      Http/1.1 200 OK
+     *      {
+     *          "passwd": "afeaewaar232423rr32r2rrbr",
+     *          "userName": "Lee"
+     *      }
+     *
+     * @apiError UserNotFound The id of the User was not found
+     *
+     */
     @RequestMapping(value="/account/{userId}", method=RequestMethod.GET)
     public Object readAccountById(@PathVariable String userId){
         return accountService.readAccountById(userId);

@@ -11,14 +11,19 @@ import java.util.List;
  */
 @Mapper
 public interface MovieDAO {
+	// MOVIE
 	Integer insertMovie(MovieSelect movie);
 	List<MovieSelect> selectAllMovie();
 	MovieSelect selectMovieByMovieId(Integer movieId);
 	void updateMovie(MovieSelect movie);
 	void deleteMovie(Integer movieId);
 
+
+	// MOVIE LINK
 	void insertMovieLink(List<MovieLink> movieLink);
 	List<MovieLink> selectMovieLinkByMovieId(Integer movieId);
+	void deleteMovieLinkByMovieId(Integer movieId);
 
+	// MOVIE VISIT
 	Integer selectMovieVisitCountTodayByMovieId(Integer movieId);
 }

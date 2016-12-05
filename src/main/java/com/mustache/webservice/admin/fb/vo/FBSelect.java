@@ -18,7 +18,7 @@ PRIMARY KEY (`FB_ACCOUNT_ID`)
 @Data
 public class FBSelect {
 	private Integer fbAccountId;
-	private Integer regUserId;
+	private String regUserId;
 	private String fbUserId;
 	private String fbUserName;
 	private Timestamp regDate;

@@ -2,6 +2,8 @@ package com.mustache.webservice.admin.fb;
 
 import com.mustache.webservice.admin.fb.vo.FBSelect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class FBController {
 	@Autowired
 	private FBService fbService;
 
-	@RequestMapping(value="/", method= RequestMethod.GET)
+	@RequestMapping(value={"", "/"}, method= RequestMethod.GET)
 	public String fbIndex(){
 		return "redirect:list";
 	}
@@ -28,6 +30,22 @@ public class FBController {
 	public String fbList(Model model){
 		model.addAttribute("FB", fbService.selectAllFBAccount());
 		return "admin/fb/list";
+	}
+
+	@RequestMapping(value="/add", method= RequestMethod.GET)
+	public String fbAdd(Model model){
+		return "admin/fb/add";
+	}
+
+
+	@RequestMapping(value="/add", method= RequestMethod.POST)
+	public Object fbAddProcess(Model model, @ModelAttribute FBSelect fbSelect){
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("[DEBUG] : SESSION NAME : " + user.getUsername());
+		fbSelect.setRegUserId(user.getUsername());
+
+		fbService.insertFBAccount(fbSelect);
+		return "redirect:list";
 	}
 
 	@RequestMapping(value="/{fbAccountId}", method= RequestMethod.GET)
@@ -45,6 +63,7 @@ public class FBController {
 	@ResponseBody
 	public Object fbUpdate(@PathVariable Integer fbAccountId, @RequestBody FBSelect fbAccount, Model model){
 		Map<String, Object> response = new HashMap<>();
+		fbAccount.setFbAccountId(fbAccountId);
 		fbService.updateFBAccount(fbAccount);
 		response.put("STATUS", "200");
 		return response;

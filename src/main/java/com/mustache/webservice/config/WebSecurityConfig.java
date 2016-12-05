@@ -11,12 +11,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.session.ConcurrentSessionFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.DispatcherType;
@@ -54,8 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-                .antMatchers("/master/**").hasRole("MASTER")
-                .antMatchers("/admin/**").hasRole("ADMIN")//spring security automatically insert ROLE_
+                .antMatchers("/master/**").access("hasRole('ROLE_MASTER')")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN","MASTER")//spring security automatically insert ROLE_
                 .antMatchers("/login").hasRole("ANONYMOUS")
                 .antMatchers("/create/account").hasRole("ANONYMOUS")
                 .antMatchers("/**").permitAll()
@@ -85,6 +88,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         http.csrf()
                 .disable();
 
+        http.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/error/expire")
+                .sessionRegistry(this.getSessionRegistry());
     }
 
     private CsrfTokenRepository csrfTokenRepository()
@@ -104,6 +112,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         return registration;
     }
 
+
+    @Bean
+    public SessionRegistry getSessionRegistry(){
+        return new SessionRegistryImpl();
+    }
 
     //custom password encoder 등록
     @Bean
